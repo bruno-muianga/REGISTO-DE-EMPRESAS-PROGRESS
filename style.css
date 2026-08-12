@@ -1487,37 +1487,39 @@ textarea.form-control {
   transform: translateY(0);
 }
 
-/* ── RESPONSIVIDADE E OTIMIZAÇÃO MÓVEL AVANÇADA ── */
+/* ════════════════════════════════════════════════════
+   RESPONSIVIDADE — TABLET (≤ 1024px)
+   ════════════════════════════════════════════════════ */
 
 @media (max-width: 1024px) {
   :root {
     --section-padding: 80px 0;
   }
-  
+
   .hero-inner {
     gap: 40px;
   }
-  
+
   .consulting-inner {
     gap: 48px;
   }
-  
+
   .scenarios-grid {
     gap: 24px;
   }
-  
+
   .steps-progress-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .deliverables-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .checklist-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .footer-inner {
     grid-template-columns: 1fr 1fr;
     gap: 48px;
@@ -1527,20 +1529,42 @@ textarea.form-control {
   }
 }
 
+/* ════════════════════════════════════════════════════
+   RESPONSIVIDADE — MOBILE (≤ 768px)
+   ════════════════════════════════════════════════════ */
+
 @media (max-width: 768px) {
   :root {
-    --section-padding: 60px 0;
+    --section-padding: 56px 0;
   }
-  
+
+  /* ── Container lateral mais estreito para mais espaço ── */
   .container {
-    padding: 0 24px; /* Tighter margins on mobile for larger content area */
+    padding: 0 20px;
   }
-  
-  /* Mobile Header */
+
+  /* ── Tipografia base escalável ── */
+  body {
+    font-size: 15px;
+    padding-bottom: 76px; /* espaço para barra CTA fixa */
+  }
+
+  /* ── Títulos de secção compactos ── */
+  .section-title {
+    font-size: clamp(22px, 6vw, 32px);
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+
+  /* ══ NAVBAR ══ */
   .menu-toggle {
     display: block;
   }
-  
+
   .nav-menu {
     position: fixed;
     top: 72px;
@@ -1548,43 +1572,46 @@ textarea.form-control {
     right: 0;
     background-color: var(--white);
     border-bottom: 1px solid var(--gray-mid);
-    box-shadow: var(--shadow-md);
-    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 28px 20px 32px;
     transform: translateY(-120%);
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition);
+    transition: all 0.3s ease;
     z-index: 99;
   }
-  
+
   .nav-menu.open {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
   }
-  
+
   .nav-list {
     flex-direction: column;
     align-items: stretch;
-    gap: 24px;
+    gap: 0;
   }
-  
+
   .nav-link {
     font-size: 16px;
     display: block;
-    padding: 8px 0;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-mid);
   }
-  
+
   .nav-cta-item {
-    margin-top: 12px;
+    margin-top: 20px;
+    border-bottom: none;
   }
-  
+
   .btn-nav-cta {
     width: 100%;
     padding: 14px;
+    justify-content: center;
   }
-  
-  /* Hamburger trigger transformations */
+
+  /* Hamburger X animation */
   .menu-toggle[aria-expanded="true"] .hamburger {
     background-color: transparent;
   }
@@ -1594,167 +1621,468 @@ textarea.form-control {
   .menu-toggle[aria-expanded="true"] .hamburger::after {
     transform: translateY(-8px) rotate(-45deg);
   }
-  
-  /* Sections Layout */
+
+  /* ══ HERO ══ */
+  .hero {
+    padding: 110px 0 60px;
+  }
+
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 36px;
     text-align: center;
   }
-  
+
+  .hero-title {
+    font-size: clamp(26px, 7vw, 38px);
+    line-height: 1.1;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+
   .hero-actions {
     align-items: center;
     width: 100%;
   }
-  
+
   .hero-cta {
     width: 100%;
+    font-size: 14px;
+    padding: 16px 20px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
   }
-  
+
   .hero-visual {
     order: 2;
-    max-width: 480px;
+    max-width: 100%;
     margin: 0 auto;
   }
-  
+
+  /* Esconder arco decorativo em mobile — evita overflow */
+  .arc-hero-bg,
+  .arc-problem {
+    display: none;
+  }
+
+  /* ══ SECÇÃO IDENTIFICAÇÃO / CENÁRIO REAL ══ */
+  .scenarios-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .scenario-card {
+    padding: 24px 20px;
+  }
+
+  .scenario-text {
+    font-size: 15px;
+  }
+
+  /* ══ SECÇÃO PROBLEMA ══ */
+  .highlight-statement {
+    font-size: 18px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .steps-progress-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .progress-step-card {
+    padding: 22px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    font-size: 28px;
+    margin-bottom: 0;
+    min-width: 40px;
+  }
+
+  .step-content h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .step-content p {
+    font-size: 13px;
+  }
+
+  /* ══ CONSULTORIA ══ */
   .consulting-inner {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 36px;
   }
-  
+
   .consulting-visual {
     order: 2;
-    max-width: 480px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
   }
-  
+
+  /* Floating card — posição relativa em mobile para não sobrepor */
   .floating-info-card {
-    left: 16px;
-    right: 16px;
-    bottom: -24px;
-    padding: 16px;
-  }
-  
-  /* Scenario mobile styling */
-  .scenarios-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .scenario-card {
-    padding: 28px 24px;
-  }
-  
-  /* Steps and timeline */
-  .steps-progress-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .progress-step-card {
-    padding: 24px;
-  }
-  
-  .vertical-timeline {
     position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: 16px;
+    border-radius: var(--radius-md);
   }
-  .vertical-timeline::before {
-    left: 21px; /* Align vertical line with 44px circle center */
+
+  .consulting-intro {
+    font-size: 15px;
   }
-  .timeline-step {
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-  .step-circle {
-    width: 44px;
-    height: 44px;
-    font-size: 16px;
-  }
-  .step-content-box {
-    padding: 20px 24px;
-  }
-  
-  /* Checklist */
-  .checklist-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .checklist-card {
-    padding: 24px;
-  }
-  
-  /* Deliverables (receives effect) mobile optimization */
-  .deliverables-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .deliverable-card {
-    padding: 28px 20px;
-    align-items: center;
-    text-align: center;
-  }
-  .deliverable-card .doc-stack {
-    margin: 0 auto;
-  }
-  
-  /* Form block mobile optimization */
-  .form-container-box {
-    padding: 32px 20px;
-  }
-  .question-title {
-    font-size: 18px;
-    margin-bottom: 24px;
-  }
-  .option-card {
-    padding: 16px 20px;
-  }
-  .option-circle {
-    margin-right: 12px;
-  }
-  .option-text {
+
+  .consulting-list li {
     font-size: 14px;
   }
-  
-  .contact-fields-grid {
-    grid-template-columns: 1fr;
+
+  /* ══ O QUE FAZEMOS — STAGES TIMELINE ══ */
+  .stage-item {
+    padding: 18px 16px;
     gap: 16px;
   }
+
+  .stage-number {
+    font-size: 24px;
+    min-width: 36px;
+  }
+
+  .stage-body h3 {
+    font-size: 16px;
+  }
+
+  .stage-body p {
+    font-size: 13px;
+  }
+
+  /* ══ DELIVERABLES (ENTREGÁVEIS) ══ */
+  .deliverables-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .deliverable-card {
+    padding: 24px 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .deliverable-num {
+    font-size: 28px;
+    min-width: 44px;
+  }
+
+  .deliverable-visual {
+    display: none; /* Esconder ilustrações SVG em mobile para leitura mais limpa */
+  }
+
+  .deliverable-info h3 {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .deliverable-info p {
+    font-size: 13px;
+  }
+
+  /* ══ COMO FUNCIONA — TIMELINE VERTICAL ══ */
+  .vertical-timeline::before {
+    left: 19px;
+    top: 22px;
+    bottom: 22px;
+  }
+
+  .timeline-step {
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .step-content-box {
+    padding: 16px 18px;
+  }
+
+  .step-content-box h3 {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .step-content-box p {
+    font-size: 13px;
+  }
+
+  /* ══ CHECKLIST "ISTO É PARA SI?" ══ */
+  .checklist-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .checklist-card {
+    padding: 18px 16px;
+    flex-direction: row;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .check-circle-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .checklist-card p {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .checklist-action .btn {
+    width: 100%;
+    font-size: 13px;
+    padding: 16px 16px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ══ FORMULÁRIO MULTI-STEP ══ */
+  .form-section {
+    padding: 48px 0;
+  }
+
+  .form-container-box {
+    padding: 28px 16px 32px;
+    border-radius: var(--radius-md);
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  .form-subtitle {
+    font-size: 14px;
+  }
+
+  .progress-bar-container {
+    margin-bottom: 32px;
+  }
+
+  .question-title {
+    font-size: 17px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+
+  .options-grid {
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .option-card {
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+  }
+
+  .option-circle {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .option-circle::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  .option-text {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Campos de contacto — coluna única */
+  .contact-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
   .form-group.full-width {
     grid-column: span 1;
   }
+
   .form-control {
-    padding: 12px 16px;
-    font-size: 14px;
+    padding: 13px 14px;
+    font-size: 15px; /* evitar zoom automático em iOS (mínimo 16px) */
   }
-  
-  /* Accordion mobile styles */
-  .faq-btn {
-    padding: 20px 24px;
+
+  textarea.form-control {
     font-size: 15px;
   }
-  .faq-body {
-    padding: 0 24px 20px;
+
+  .field-label {
+    font-size: 13px;
+  }
+
+  .input-container {
+    margin-bottom: 28px;
+  }
+
+  /* Navegação do formulário */
+  .form-navigation {
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  .form-navigation .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 15px;
+  }
+
+  /* Ecrã de sucesso */
+  .success-title {
+    font-size: 22px;
+  }
+
+  .success-text {
     font-size: 14px;
   }
-  
-  /* Footer layout */
+
+  /* ══ FAQ ══ */
+  .faq-btn {
+    padding: 18px 20px;
+    font-size: 15px;
+    text-align: left;
+    line-height: 1.4;
+  }
+
+  .faq-body {
+    padding: 0 20px 18px;
+    font-size: 14px;
+  }
+
+  /* ══ FOOTER ══ */
+  .footer {
+    padding: 56px 0 32px;
+  }
+
   .footer-inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
+    margin-bottom: 40px;
   }
+
   .footer-inner > *:first-child {
     grid-column: span 1;
   }
+
+  .footer-logo-img {
+    height: 44px;
+  }
+
+  .footer-desc {
+    font-size: 13px;
+  }
+
+  .footer-links h4,
+  .footer-contact h4 {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  .contact-list li {
+    font-size: 13px;
+  }
+
   .footer-bottom {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     text-align: center;
+    font-size: 12px;
+    padding-top: 28px;
   }
-  
-  /* Space for sticky CTA bar at bottom of mobile viewport */
-  body {
-    padding-bottom: 80px;
-  }
+
+  /* ══ STICKY CTA MOBILE ══ */
   .sticky-cta-mobile {
     display: block;
+    padding: 12px 20px;
+  }
+
+  .sticky-cta-mobile .btn {
+    font-size: 14px;
+    padding: 14px;
+  }
+}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVIDADE — MOBILE PEQUENO (≤ 380px)
+   Cobre iPhone SE, telemóveis com ecrãs estreitos
+   ════════════════════════════════════════════════════ */
+
+@media (max-width: 380px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero-title {
+    font-size: 24px;
+  }
+
+  .hero-cta {
+    font-size: 13px;
+    padding: 14px 16px;
+  }
+
+  .section-title {
+    font-size: 21px;
+  }
+
+  .btn-xl, .btn-lg {
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .form-container-box {
+    padding: 24px 14px 28px;
+  }
+
+  .question-title {
+    font-size: 16px;
+  }
+
+  .option-text {
+    font-size: 13px;
+  }
+
+  .faq-btn {
+    font-size: 14px;
+    padding: 16px 16px;
   }
 }
