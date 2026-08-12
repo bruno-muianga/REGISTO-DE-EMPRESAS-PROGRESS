@@ -8,13 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. EVENTOS DE RASTREAMENTO (CRO / TAGS)
   // ==========================================
   
-  // Função auxiliar para registar eventos na consola (simulando Meta Pixel, GA, GTM)
+  // Função auxiliar para registar eventos na consola e Meta Pixel (fbq)
   function trackEvent(eventName, eventData = {}) {
     const timestamp = new Date().toISOString();
     console.group(`[TRACKING EVENT] ${eventName}`);
     console.log(`Hora: ${timestamp}`);
     console.log('Dados:', eventData);
     console.groupEnd();
+
+    // Disparar evento personalizado no Meta Pixel se estiver carregado
+    if (typeof fbq === 'function') {
+      fbq('trackCustom', eventName, eventData);
+    }
   }
 
   // Registar carregamento da página
@@ -303,6 +308,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Rastrear clique direto no último botão de envio do formulário (#form-submit)
+  const submitBtnEl = document.getElementById('form-submit');
+  if (submitBtnEl) {
+    submitBtnEl.addEventListener('click', () => {
+      if (typeof fbq === 'function') {
+        fbq('trackCustom', 'CliqueBotaoEnviar', {
+          button_id: 'form-submit',
+          button_text: 'Submeter e Iniciar Orientação',
+          page_location: window.location.href
+        });
+        console.log('[Meta Pixel] Evento Custom (CliqueBotaoEnviar) disparado ao clicar no botão final.');
+      }
+      trackEvent('SubmitFormButtonClick', { button_id: 'form-submit' });
+    });
+  }
+
   function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
@@ -336,11 +357,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const submitBtn = document.getElementById('form-submit');
-    const originalBtnHTML = submitBtn.innerHTML;
-    submitBtn.textContent = 'A processar...';
-    submitBtn.disabled = true;
+    const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.textContent = 'A processar...';
+      submitBtn.disabled = true;
+    }
 
-    // ── META PIXEL: disparar evento Lead (Facebook Ads) ─────────────
+    // ── META PIXEL: disparar eventos Lead e SubmitApplication (Facebook Ads) ─────────────
     if (typeof fbq === 'function') {
       fbq('track', 'Lead', {
         content_name: 'Formulário de Qualificação',
@@ -352,7 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ph: formAnswers.contacto.whatsapp,
         fn: formAnswers.contacto.nome_completo
       });
-      console.log('[Meta Pixel] Evento Lead disparado.');
+      fbq('track', 'SubmitApplication', {
+        content_name: 'Formulário de Qualificação'
+      });
+      console.log('[Meta Pixel] Eventos Lead e SubmitApplication disparados com sucesso.');
     }
 
     // ── CONSOLE CRO ─────────────────────────────────────────────────
